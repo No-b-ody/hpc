@@ -68,27 +68,35 @@ class Parser:
     def __getattr__(self, name):
         return self.attrs[name]
 
-old = Parser("output_old.m")
-new = Parser("output_new.m")
+n1 = Parser("output_1.m")
+n2 = Parser("output_2.m")
+n3 = Parser("output_3.m")
+n4 = Parser("output_4.m")
 
-#print(old)
-#print(new)
+#print(1)
+#print(2)
+#print(3)
+#print(4)
 
-old_data = np.array(old.MY_MMult).reshape(-1, 3)
-new_data = np.array(new.MY_MMult).reshape(-1, 3)
+n1_data = np.array(n1.MY_MMult).reshape(-1, 3)
+n2_data = np.array(n2.MY_MMult).reshape(-1, 3)
+n3_data = np.array(n3.MY_MMult).reshape(-1, 3)
+n4_data = np.array(n4.MY_MMult).reshape(-1, 3)
 
 max_gflops = nflops_per_cycle * nprocessors * GHz_of_processor;
 
 fig, ax = plt.subplots()
-ax.plot(old_data[:,0], old_data[:,1], 'bo-.', label='old:' + old.version)
-ax.plot(new_data[:,0], new_data[:,1], 'r-*', label='new:' + new.version)
+ax.plot(n1_data[:,0], n1_data[:,1], 'bo-.', label='1:' + n1.version)
+ax.plot(n2_data[:,0], n2_data[:,1], 'k-*', label='2:' + n2.version)
+ax.plot(n3_data[:,0], n3_data[:,1], 'mo-.', label='3:' + n3.version)
+ax.plot(n4_data[:,0], n4_data[:,1], 'r-*', label='4:' + n4.version)
 
 ax.set(xlabel='m = n = k', ylabel='GFLOPS/sec.',
-       title="OLD = {}, NEW = {}".format(old.version, new.version))
+       title="1 = {}, 2 = {},3 = {},4 = {}".format(n1.version, n2.version,n3.version,n4.version))
 ax.grid()
 ax.legend()
 
-ax.set_xlim([old_data[0,0], old_data[-1,0]])
+ax.set_xlim([n1_data[0,0], n1_data[-1,0]])
 ax.set_ylim([0, max_gflops])
 
 # fig.savefig("test.png")
